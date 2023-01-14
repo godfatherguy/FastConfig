@@ -91,11 +91,14 @@ public class CommandModify extends Command {
             List<String> completions = new ArrayList<>();
             completions.add("-adjustYaw");
             completions.add("-adjustPitch");
+            completions.add("-onClick");
             for (int i = 3; i < args.length; i++) {
                 if (args[i].equalsIgnoreCase("-adjustYaw"))
                     completions.remove("-adjustYaw");
                 else if (args[i].equalsIgnoreCase("-adjustPitch"))
                     completions.remove("-adjustPitch");
+                else if (args[i].equalsIgnoreCase("-onClick"))
+                    completions.remove("-onClick");
             }
             return completions;
         }
