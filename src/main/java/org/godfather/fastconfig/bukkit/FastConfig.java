@@ -1,9 +1,8 @@
 package org.godfather.fastconfig.bukkit;
 
-import org.godfather.fastconfig.bukkit.commands.CommandCreate;
-import org.godfather.fastconfig.bukkit.commands.CommandDelete;
-import org.godfather.fastconfig.bukkit.commands.CommandModify;
-import org.godfather.fastconfig.bukkit.commands.CommandReload;
+import org.godfather.fastconfig.bukkit.commands.*;
+import org.godfather.fastconfig.bukkit.events.PlayerClickListener;
+import org.godfather.fastconfig.bukkit.events.PlayerCommonListener;
 import org.godfather.fastconfig.common.FastConfigPlugin;
 
 public final class FastConfig extends FastConfigPlugin {
@@ -15,6 +14,10 @@ public final class FastConfig extends FastConfigPlugin {
         registerCommand(new CommandDelete(this, "configdelete"));
         registerCommand(new CommandModify(this, "configmodify"));
         registerCommand(new CommandReload(this, "configreload"));
+        registerCommand(new CommandAbort(this, "configabort"));
+
+        getServer().getPluginManager().registerEvents(new PlayerCommonListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerClickListener(this), this);
     }
 
     @Override

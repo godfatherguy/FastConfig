@@ -1,5 +1,6 @@
 package org.godfather.fastconfig.bukkit.commands;
 
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.godfather.fastconfig.common.FastConfigPlugin;
@@ -44,14 +45,28 @@ public class CommandModify extends Command {
 
             boolean adjustYaw = false;
             boolean adjustPitch = false;
+            boolean onClick = false;
             for (int i = 3; i < args.length; i++) {
                 if (args[i].equalsIgnoreCase("-adjustYaw"))
                     adjustYaw = true;
                 else if (args[i].equalsIgnoreCase("-adjustPitch"))
                     adjustPitch = true;
+                else if (args[i].equalsIgnoreCase("-onClick"))
+                    onClick = true;
             }
             float yaw = adjustYaw ? getNearestYaw(player.getLocation().getYaw()) : player.getLocation().getYaw();
             float pitch = adjustPitch ? 0.0f : player.getLocation().getPitch();
+
+            if (onClick) {
+                if (plugin.getPlayerManager().getProfile(player).isEmpty() || plugin.getPlayerManager().getProfile(player).get().getClickThread().isPresent()) {
+                    player.sendMessage("§cDevi ancora cliccare un blocco! (/configabort per annullare)");
+                    return false;
+                }
+                plugin.getPlayerManager().getProfile(player).get().putThread(config, path, new Location(player.getWorld(), 0, 0, 0, yaw, pitch));
+                player.sendMessage("§eClicca su un blocco qualsiasi per impostare la sua location. (Digita /configabort per annullare l'operazione)");
+                return true;
+            }
+
             config.getConfig().set(path + ".x", Math.round(player.getLocation().getX() * 10.0) / 10.0);
             config.getConfig().set(path + ".y", Math.round(player.getLocation().getY() * 10.0) / 10.0);
             config.getConfig().set(path + ".z", Math.round(player.getLocation().getZ() * 10.0) / 10.0);
@@ -77,9 +92,9 @@ public class CommandModify extends Command {
             completions.add("-adjustYaw");
             completions.add("-adjustPitch");
             for (int i = 3; i < args.length; i++) {
-                if(args[i].equalsIgnoreCase("-adjustYaw"))
+                if (args[i].equalsIgnoreCase("-adjustYaw"))
                     completions.remove("-adjustYaw");
-                else if(args[i].equalsIgnoreCase("-adjustPitch"))
+                else if (args[i].equalsIgnoreCase("-adjustPitch"))
                     completions.remove("-adjustPitch");
             }
             return completions;

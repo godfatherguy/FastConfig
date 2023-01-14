@@ -12,6 +12,8 @@ commands:
     aliases: [cmodify, confmodify, cedit, confedit]
   configreload:
     aliases: [creload, confreload]
+  configabort:
+    aliases: [cabort, confabort]
 
 permissions:
   fastconfig.create:
@@ -21,4 +23,6 @@ permissions:
   fastconfig.modify:
     default: false
   fastconfig.reload:
+    default: false
+  fastconfig.abort:
     default: false
