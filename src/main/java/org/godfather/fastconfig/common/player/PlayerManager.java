@@ -11,7 +11,7 @@ public class PlayerManager {
     private final Map<Player, PluginPlayer> players = new HashMap<>();
 
     public Optional<PluginPlayer> getProfile(Player player) {
-        return Optional.of(players.get(player));
+        return Optional.ofNullable(players.get(player));
     }
 
     public void setupProfile(Player player) {
