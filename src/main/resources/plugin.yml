@@ -1,0 +1,20 @@
+name: FastConfig
+author: godfather
+main: org.godfather.fastconfig.bukkit.FastConfig
+version: 1.0.0
+
+commands:
+  configcreate:
+    aliases: [ccreate, confcreate]
+  configdelete:
+    aliases: [cdelete, confdelete]
+  configmodify:
+    aliases: [cmodify, confmodify, cedit, confedit]
+
+permissions:
+  fastconfig.create:
+    default: false
+  fastconfig.delete:
+    default: false
+  fastconfig.modify:
+    default: false
