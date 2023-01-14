@@ -43,6 +43,7 @@ public class ConfigManager {
     public void unloadConfigs() {
         List<String> configs = this.configs.keySet().stream().toList();
         plugin.getConfig().set("active-configs", configs);
+        plugin.saveConfig();
         this.configs.clear();
     }
 }
