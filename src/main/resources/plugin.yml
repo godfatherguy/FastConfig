@@ -10,6 +10,8 @@ commands:
     aliases: [cdelete, confdelete]
   configmodify:
     aliases: [cmodify, confmodify, cedit, confedit]
+  configreload:
+    aliases: [creload, confreload]
 
 permissions:
   fastconfig.create:
@@ -17,4 +19,6 @@ permissions:
   fastconfig.delete:
     default: false
   fastconfig.modify:
+    default: false
+  fastconfig.reload:
     default: false
