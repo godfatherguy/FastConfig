@@ -15,6 +15,7 @@ public final class FastConfig extends FastConfigPlugin {
         registerCommand(new CommandModify(this, "configmodify"));
         registerCommand(new CommandReload(this, "configreload"));
         registerCommand(new CommandAbort(this, "configabort"));
+        registerCommand(new CommandHelp(this, "confighelp"));
 
         getServer().getPluginManager().registerEvents(new PlayerCommonListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerClickListener(this), this);

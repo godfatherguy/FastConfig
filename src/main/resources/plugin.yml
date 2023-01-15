@@ -14,6 +14,8 @@ commands:
     aliases: [creload, confreload]
   configabort:
     aliases: [cabort, confabort]
+  confighelp:
+    aliases: [chelp, confhelp]
 
 permissions:
   fastconfig.create:
@@ -25,4 +27,6 @@ permissions:
   fastconfig.reload:
     default: false
   fastconfig.abort:
+    default: false
+  fastconfig.help:
     default: false
