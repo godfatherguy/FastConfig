@@ -68,9 +68,9 @@ public class CommandModify extends Command {
                 return true;
             }
 
-            config.getConfig().set(path + ".x", Math.round(player.getLocation().getX() * 10.0) / 10.0);
-            config.getConfig().set(path + ".y", Math.round(player.getLocation().getY() * 10.0) / 10.0);
-            config.getConfig().set(path + ".z", Math.round(player.getLocation().getZ() * 10.0) / 10.0);
+            config.getConfig().set(path + ".x", getAdjusted(player.getLocation().getX()));
+            config.getConfig().set(path + ".y", getAdjusted(player.getLocation().getY()));
+            config.getConfig().set(path + ".z", getAdjusted(player.getLocation().getZ()));
             config.getConfig().set(path + ".yaw", yaw);
             config.getConfig().set(path + ".pitch", pitch);
             config.save();
@@ -122,5 +122,28 @@ public class CommandModify extends Command {
         } else if (yaw >= -112.5 && yaw < -67.5) {
             return -90.0f;
         } else return -45.0f;
+    }
+
+    private double getAdjusted(double coordinate) {
+        double rounded = Math.round(coordinate * 10.0) / 10.0;
+        int intPart = Integer.parseInt(String.valueOf(rounded).split("\\.")[0]);
+        double decimalPart = Integer.parseInt(String.valueOf(rounded).split("\\.")[1]) * 0.1;
+
+        if (decimalPart >= 0 && decimalPart <= 0.2)
+            return intPart;
+
+        else if (decimalPart > 0.2 && decimalPart < 0.8)
+            if (intPart < 0)
+                return intPart - 0.5;
+            else return intPart + 0.5;
+
+        else if (decimalPart >= 0.8)
+            if (intPart < 0)
+                return intPart - 1;
+            else return intPart + 1;
+
+        else if (intPart < 0)
+            return intPart - 0.5;
+        else return intPart + 0.5;
     }
 }
