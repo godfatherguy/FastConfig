@@ -58,6 +58,7 @@ public class CommandModify extends Command {
             float pitch = adjustPitch ? 0.0f : player.getLocation().getPitch();
 
             if (onClick) {
+
                 if (plugin.getPlayerManager().getProfile(player).isEmpty() || plugin.getPlayerManager().getProfile(player).get().getClickThread().isPresent()) {
                     player.sendMessage("§cDevi ancora cliccare un blocco! (/configabort per annullare)");
                     return false;

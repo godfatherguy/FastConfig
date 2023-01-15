@@ -19,7 +19,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String s, String[] args) {
-        if(!cmd.getName().equalsIgnoreCase(name))
+        if (!cmd.getName().equalsIgnoreCase(name))
             return false;
 
         return execute(sender, args);

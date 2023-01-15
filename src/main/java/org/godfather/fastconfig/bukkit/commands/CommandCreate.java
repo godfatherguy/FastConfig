@@ -15,17 +15,17 @@ public class CommandCreate extends Command {
 
     @Override
     protected boolean execute(CommandSender sender, String[] args) {
-        if(!sender.hasPermission("fastconfig.create") && !sender.isOp()) {
+        if (!sender.hasPermission("fastconfig.create") && !sender.isOp()) {
             sender.sendMessage("§cNon hai accesso a questo comando.");
             return false;
         }
-        if(args.length != 1) {
+        if (args.length != 1) {
             sender.sendMessage("§cUtilizza: /" + getName() + " <nome config>");
             return false;
         }
         String configName = args[0];
 
-        if(plugin.getConfigManager().getConfig(configName).isPresent()) {
+        if (plugin.getConfigManager().getConfig(configName).isPresent()) {
             sender.sendMessage("§cQuesto config esiste già.");
             return false;
         }

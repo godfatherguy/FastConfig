@@ -46,7 +46,7 @@ public class Config {
     }
 
     public void delete() {
-        if(customFile != null)
+        if (customFile != null)
             FileUtil.delete(customFile);
     }
 

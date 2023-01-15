@@ -21,10 +21,10 @@ public class PlayerClickListener implements Listener {
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-        if(event.getAction() != Action.LEFT_CLICK_BLOCK)
+        if (event.getAction() != Action.LEFT_CLICK_BLOCK)
             return;
 
-        if(plugin.getPlayerManager().getProfile(player).isEmpty() || plugin.getPlayerManager().getProfile(player).get().getClickThread().isEmpty())
+        if (plugin.getPlayerManager().getProfile(player).isEmpty() || plugin.getPlayerManager().getProfile(player).get().getClickThread().isEmpty())
             return;
         PluginPlayer plPlayer = plugin.getPlayerManager().getProfile(player).get();
 

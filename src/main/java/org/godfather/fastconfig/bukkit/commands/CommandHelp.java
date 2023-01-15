@@ -19,15 +19,15 @@ public class CommandHelp extends Command {
 
     @Override
     protected boolean execute(CommandSender sender, String[] args) {
-        if(!sender.hasPermission("fastconfig.help") && !sender.isOp()) {
+        if (!sender.hasPermission("fastconfig.help") && !sender.isOp()) {
             sender.sendMessage("§cNon hai accesso a questo comando.");
             return false;
         }
-        if(!(sender instanceof Player player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage("§cThis command cannot be performed by console.");
             return false;
         }
-        if(args.length != 0) {
+        if (args.length != 0) {
             sender.sendMessage("§cUtilizza: /" + getName());
             return false;
         }

@@ -16,17 +16,17 @@ public class CommandReload extends Command {
 
     @Override
     protected boolean execute(CommandSender sender, String[] args) {
-        if(!sender.hasPermission("fastconfig.reload") && !sender.isOp()) {
+        if (!sender.hasPermission("fastconfig.reload") && !sender.isOp()) {
             sender.sendMessage("§cNon hai accesso a questo comando.");
             return false;
         }
-        if(args.length != 1) {
+        if (args.length != 1) {
             sender.sendMessage("§cUtilizza: /" + getName() + " <nome config>");
             return false;
         }
         String configName = args[0];
 
-        if(plugin.getConfigManager().getConfig(configName).isEmpty()) {
+        if (plugin.getConfigManager().getConfig(configName).isEmpty()) {
             sender.sendMessage("§cQuesto config non esiste.");
             return false;
         }
@@ -37,7 +37,7 @@ public class CommandReload extends Command {
 
     @Override
     protected List<String> tabComplete(CommandSender sender, String[] args) {
-        if(args.length == 1) {
+        if (args.length == 1) {
             return new ArrayList<>(plugin.getConfigManager().getConfigs().keySet());
         }
         return Collections.emptyList();
