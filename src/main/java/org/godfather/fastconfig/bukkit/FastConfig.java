@@ -18,10 +18,13 @@ public final class FastConfig extends FastConfigPlugin {
 
         getServer().getPluginManager().registerEvents(new PlayerCommonListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerClickListener(this), this);
+
+        LOGGER.info("§d[FastConfig] Plugin enabled!");
     }
 
     @Override
     protected void disable() {
         configManager.unloadConfigs();
+        LOGGER.info("§d[FastConfig] Plugin disabled...");
     }
 }
