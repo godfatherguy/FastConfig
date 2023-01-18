@@ -4,18 +4,8 @@ main: org.godfather.fastconfig.bukkit.FastConfig
 version: 1.0.6
 
 commands:
-  configcreate:
-    aliases: [ccreate, confcreate]
-  configdelete:
-    aliases: [cdelete, confdelete]
-  configmodify:
-    aliases: [cmodify, confmodify, cedit, confedit]
-  configreload:
-    aliases: [creload, confreload]
-  configabort:
-    aliases: [cabort, confabort]
-  confighelp:
-    aliases: [chelp, confhelp]
+  config:
+    aliases: [configuration, yml]
 
 permissions:
   fastconfig.create:

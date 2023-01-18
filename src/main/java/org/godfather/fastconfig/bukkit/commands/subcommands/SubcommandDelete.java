@@ -1,21 +1,22 @@
-package org.godfather.fastconfig.bukkit.commands;
+package org.godfather.fastconfig.bukkit.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
-import org.godfather.fastconfig.common.FastConfigPlugin;
 import org.godfather.fastconfig.common.command.Command;
+import org.godfather.fastconfig.common.command.SubCommand;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandDelete extends Command {
+public record SubcommandDelete(Command command) implements SubCommand {
 
-    public CommandDelete(FastConfigPlugin plugin, String name) {
-        super(plugin, name);
+    @Override
+    public String getName() {
+        return "delete";
     }
 
     @Override
-    protected boolean execute(CommandSender sender, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission("fastconfig.delete") && !sender.isOp()) {
             sender.sendMessage("§cNon hai accesso a questo comando.");
             return false;
@@ -26,19 +27,19 @@ public class CommandDelete extends Command {
         }
         String configName = args[0];
 
-        if (plugin.getConfigManager().getConfig(configName).isEmpty()) {
+        if (command.getPlugin().getConfigManager().getConfig(configName).isEmpty()) {
             sender.sendMessage("§cQuesto config non esiste.");
             return false;
         }
-        plugin.getConfigManager().remove(configName);
+        command.getPlugin().getConfigManager().remove(configName);
         sender.sendMessage("§aConfig " + configName + ".yml eliminato dal database.");
         return true;
     }
 
     @Override
-    protected List<String> tabComplete(CommandSender sender, String[] args) {
+    public List<String> onTabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(plugin.getConfigManager().getConfigs().keySet());
+            return new ArrayList<>(command.getPlugin().getConfigManager().getConfigs().keySet());
         }
         return Collections.emptyList();
     }

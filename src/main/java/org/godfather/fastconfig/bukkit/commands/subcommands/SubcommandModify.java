@@ -1,10 +1,10 @@
-package org.godfather.fastconfig.bukkit.commands;
+package org.godfather.fastconfig.bukkit.commands.subcommands;
 
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.godfather.fastconfig.common.FastConfigPlugin;
 import org.godfather.fastconfig.common.command.Command;
+import org.godfather.fastconfig.common.command.SubCommand;
 import org.godfather.fastconfig.common.config.Config;
 
 import java.util.ArrayList;
@@ -12,14 +12,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandModify extends Command {
+public record SubcommandModify(Command command) implements SubCommand {
 
-    public CommandModify(FastConfigPlugin plugin, String name) {
-        super(plugin, name);
+    @Override
+    public String getName() {
+        return "modify";
     }
 
     @Override
-    protected boolean execute(CommandSender sender, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission("fastconfig.modify") && !sender.isOp()) {
             sender.sendMessage("§cNon hai accesso a questo comando.");
             return false;
@@ -30,11 +31,11 @@ public class CommandModify extends Command {
         }
         String configName = args[0];
 
-        if (plugin.getConfigManager().getConfig(configName).isEmpty()) {
+        if (command.getPlugin().getConfigManager().getConfig(configName).isEmpty()) {
             sender.sendMessage("§cQuesto config non esiste.");
             return false;
         }
-        Config config = plugin.getConfigManager().getConfig(configName).get();
+        Config config = command.getPlugin().getConfigManager().getConfig(configName).get();
         String path = args[1];
 
         if (args[2].equalsIgnoreCase("location")) {
@@ -59,11 +60,12 @@ public class CommandModify extends Command {
 
             if (onClick) {
 
-                if (plugin.getPlayerManager().getProfile(player).isEmpty() || plugin.getPlayerManager().getProfile(player).get().getClickThread().isPresent()) {
+                if (command.getPlugin().getPlayerManager().getProfile(player).isEmpty() ||
+                        command.getPlugin().getPlayerManager().getProfile(player).get().getClickThread().isPresent()) {
                     player.sendMessage("§cDevi ancora cliccare un blocco! (/configabort per annullare)");
                     return false;
                 }
-                plugin.getPlayerManager().getProfile(player).get().putThread(config, path, new Location(player.getWorld(), 0, 0, 0, yaw, pitch));
+                command.getPlugin().getPlayerManager().getProfile(player).get().putThread(config, path, new Location(player.getWorld(), 0, 0, 0, yaw, pitch));
                 player.sendMessage("§eClicca su un blocco qualsiasi per impostare la sua location. (Digita /configabort per annullare l'operazione)");
                 return true;
             }
@@ -83,9 +85,9 @@ public class CommandModify extends Command {
     }
 
     @Override
-    protected List<String> tabComplete(CommandSender sender, String[] args) {
+    public List<String> onTabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(plugin.getConfigManager().getConfigs().keySet());
+            return new ArrayList<>(command.getPlugin().getConfigManager().getConfigs().keySet());
         } else if (args.length == 3) {
             return Arrays.stream(new String[]{"location"}).toList();
         } else if (args.length > 3 && args[2].equalsIgnoreCase("location")) {

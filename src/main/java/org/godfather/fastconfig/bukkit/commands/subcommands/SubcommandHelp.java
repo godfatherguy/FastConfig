@@ -1,9 +1,9 @@
-package org.godfather.fastconfig.bukkit.commands;
+package org.godfather.fastconfig.bukkit.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.godfather.fastconfig.common.FastConfigPlugin;
 import org.godfather.fastconfig.common.command.Command;
+import org.godfather.fastconfig.common.command.SubCommand;
 import org.godfather.fastconfig.universal.Utils;
 import org.godfather.fastconfig.universal.messages.MessageFlag;
 import org.godfather.fastconfig.universal.messages.MessageType;
@@ -11,14 +11,15 @@ import org.godfather.fastconfig.universal.messages.MessageType;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandHelp extends Command {
+public record SubcommandHelp(Command command) implements SubCommand {
 
-    public CommandHelp(FastConfigPlugin plugin, String name) {
-        super(plugin, name);
+    @Override
+    public String getName() {
+        return "help";
     }
 
     @Override
-    protected boolean execute(CommandSender sender, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission("fastconfig.help") && !sender.isOp()) {
             sender.sendMessage("§cNon hai accesso a questo comando.");
             return false;
@@ -28,7 +29,7 @@ public class CommandHelp extends Command {
             return false;
         }
         if (args.length != 0) {
-            sender.sendMessage("§cUtilizza: /" + getName());
+            sender.sendMessage("§cUtilizza: /" + command().getName() + " " + getName());
             return false;
         }
 
@@ -45,7 +46,7 @@ public class CommandHelp extends Command {
     }
 
     @Override
-    protected List<String> tabComplete(CommandSender sender, String[] args) {
+    public List<String> onTabComplete(CommandSender sender, String[] args) {
         return Collections.emptyList();
     }
 }
