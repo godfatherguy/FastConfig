@@ -52,6 +52,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
                 completions.add(name.toLowerCase());
             }
             Collections.sort(completions);
+            completions.removeIf(str -> !str.toLowerCase().startsWith(args[0].toLowerCase()));
             return completions;
         }
         Optional<SubCommand> subCommand = Optional.ofNullable(subCommands.get(args[0]));
@@ -60,6 +61,12 @@ public abstract class Command implements CommandExecutor, TabCompleter {
             return Collections.emptyList();
 
         String[] finalArgs = Arrays.copyOfRange(args, 1, args.length);
+
+        List<String> subCompletions = subCommand.get().onTabComplete(sender, finalArgs);
+        for (int i = 1; i < args.length; i++) {
+            int finalI = i;
+            subCompletions.removeIf(str -> !str.toLowerCase().startsWith(args[finalI].toLowerCase()));
+        }
         return subCommand.get().onTabComplete(sender, finalArgs);
     }
 
@@ -69,8 +76,8 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         return name;
     }
 
-    public Collection<SubCommand> getSubCommands() {
-        return Collections.unmodifiableCollection(subCommands.values());
+    public Optional<SubCommand> getSubCommand(String name) {
+        return Optional.ofNullable(subCommands.get(name));
     }
 
     public FastConfigPlugin getPlugin() {

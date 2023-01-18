@@ -23,7 +23,10 @@ public final class CommandConfig extends Command {
 
     @Override
     protected boolean execute(CommandSender sender, String[] args) {
-        //todo comando help
+        if(getSubCommand("help").isEmpty())
+            return false;
+
+        getSubCommand("help").get().onCommand(sender, args);
         return true;
     }
 }
