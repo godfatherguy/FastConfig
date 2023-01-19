@@ -2,18 +2,17 @@ package org.godfather.fastconfig.bukkit.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.godfather.fastconfig.common.command.AbstractSubCommand;
 import org.godfather.fastconfig.common.command.Command;
-import org.godfather.fastconfig.common.command.SubCommand;
 import org.godfather.fastconfig.common.player.PluginPlayer;
 
 import java.util.Collections;
 import java.util.List;
 
-public record SubcommandAbort(Command command) implements SubCommand {
+public class SubcommandAbort extends AbstractSubCommand {
 
-    @Override
-    public String getName() {
-        return "abort";
+    public SubcommandAbort(Command command, String name) {
+        super(command, name);
     }
 
     @Override

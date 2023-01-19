@@ -3,8 +3,8 @@ package org.godfather.fastconfig.bukkit.commands.subcommands;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.godfather.fastconfig.common.command.AbstractSubCommand;
 import org.godfather.fastconfig.common.command.Command;
-import org.godfather.fastconfig.common.command.SubCommand;
 import org.godfather.fastconfig.common.config.Config;
 
 import java.util.ArrayList;
@@ -12,11 +12,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public record SubcommandModify(Command command) implements SubCommand {
+public class SubcommandModify extends AbstractSubCommand {
 
-    @Override
-    public String getName() {
-        return "modify";
+    public SubcommandModify(Command command, String name) {
+        super(command, name);
     }
 
     @Override

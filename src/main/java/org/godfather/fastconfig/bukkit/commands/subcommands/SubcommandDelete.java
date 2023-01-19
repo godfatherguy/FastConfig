@@ -1,18 +1,17 @@
 package org.godfather.fastconfig.bukkit.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
+import org.godfather.fastconfig.common.command.AbstractSubCommand;
 import org.godfather.fastconfig.common.command.Command;
-import org.godfather.fastconfig.common.command.SubCommand;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public record SubcommandDelete(Command command) implements SubCommand {
+public class SubcommandDelete extends AbstractSubCommand {
 
-    @Override
-    public String getName() {
-        return "delete";
+    public SubcommandDelete(Command command, String name) {
+        super(command, name);
     }
 
     @Override

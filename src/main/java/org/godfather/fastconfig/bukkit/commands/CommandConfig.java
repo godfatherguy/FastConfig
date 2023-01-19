@@ -13,12 +13,12 @@ public final class CommandConfig extends Command {
 
     @Override
     protected void registerSubCommands() {
-        registerSubCommand(new SubcommandCreate(this));
-        registerSubCommand(new SubcommandReload(this));
-        registerSubCommand(new SubcommandHelp(this));
-        registerSubCommand(new SubcommandDelete(this));
-        registerSubCommand(new SubcommandAbort(this));
-        registerSubCommand(new SubcommandModify(this));
+        registerSubCommand(new SubcommandCreate(this, "create"));
+        registerSubCommand(new SubcommandReload(this, "reload"));
+        registerSubCommand(new SubcommandHelp(this, "help"));
+        registerSubCommand(new SubcommandDelete(this, "delete"));
+        registerSubCommand(new SubcommandAbort(this, "abort"));
+        registerSubCommand(new SubcommandModify(this, "modify"));
     }
 
     @Override

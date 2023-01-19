@@ -2,8 +2,8 @@ package org.godfather.fastconfig.bukkit.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.godfather.fastconfig.common.command.AbstractSubCommand;
 import org.godfather.fastconfig.common.command.Command;
-import org.godfather.fastconfig.common.command.SubCommand;
 import org.godfather.fastconfig.universal.Utils;
 import org.godfather.fastconfig.universal.messages.MessageFlag;
 import org.godfather.fastconfig.universal.messages.MessageType;
@@ -11,11 +11,10 @@ import org.godfather.fastconfig.universal.messages.MessageType;
 import java.util.Collections;
 import java.util.List;
 
-public record SubcommandHelp(Command command) implements SubCommand {
+public class SubcommandHelp extends AbstractSubCommand {
 
-    @Override
-    public String getName() {
-        return "help";
+    public SubcommandHelp(Command command, String name) {
+        super(command, name);
     }
 
     @Override
@@ -29,7 +28,7 @@ public record SubcommandHelp(Command command) implements SubCommand {
             return false;
         }
         if (args.length != 0) {
-            sender.sendMessage("§cUtilizza: /" + command().getName() + " " + getName());
+            sender.sendMessage("§cUtilizza: /" + command.getName() + " " + getName());
             return false;
         }
 

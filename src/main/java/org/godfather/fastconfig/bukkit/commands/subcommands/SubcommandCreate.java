@@ -1,17 +1,16 @@
 package org.godfather.fastconfig.bukkit.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
+import org.godfather.fastconfig.common.command.AbstractSubCommand;
 import org.godfather.fastconfig.common.command.Command;
-import org.godfather.fastconfig.common.command.SubCommand;
 
 import java.util.Collections;
 import java.util.List;
 
-public record SubcommandCreate(Command command) implements SubCommand {
+public class SubcommandCreate extends AbstractSubCommand {
 
-    @Override
-    public String getName() {
-        return "create";
+    public SubcommandCreate(Command command, String name) {
+        super(command, name);
     }
 
     @Override
@@ -21,7 +20,7 @@ public record SubcommandCreate(Command command) implements SubCommand {
             return false;
         }
         if (args.length != 1) {
-            sender.sendMessage("§cUtilizza: /" + command().getName() + " " + getName() + " <nome config>");
+            sender.sendMessage("§cUtilizza: /" + command.getName() + " " + getName() + " <nome config>");
             return false;
         }
         String configName = args[0];

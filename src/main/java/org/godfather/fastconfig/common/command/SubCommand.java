@@ -12,5 +12,5 @@ public interface SubCommand {
 
     List<String> onTabComplete(CommandSender sender, String[] args);
 
-    Command command();
+    Command getCommand();
 }
