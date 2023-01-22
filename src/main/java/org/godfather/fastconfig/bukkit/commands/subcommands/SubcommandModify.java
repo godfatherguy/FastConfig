@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.godfather.fastconfig.common.command.AbstractSubCommand;
 import org.godfather.fastconfig.common.command.Command;
 import org.godfather.fastconfig.common.config.Config;
+import org.godfather.fastconfig.universal.WorldUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,7 +55,7 @@ public class SubcommandModify extends AbstractSubCommand {
                 else if (args[i].equalsIgnoreCase("-onClick"))
                     onClick = true;
             }
-            float yaw = adjustYaw ? getNearestYaw(player.getLocation().getYaw()) : player.getLocation().getYaw();
+            float yaw = adjustYaw ? WorldUtils.getNearestYaw(player.getLocation().getYaw()) : player.getLocation().getYaw();
             float pitch = adjustPitch ? 0.0f : player.getLocation().getPitch();
 
             if (onClick) {
@@ -69,9 +70,9 @@ public class SubcommandModify extends AbstractSubCommand {
                 return true;
             }
 
-            config.getConfig().set(path + ".x", getAdjusted(player.getLocation().getX()));
-            config.getConfig().set(path + ".y", getAdjusted(player.getLocation().getY()));
-            config.getConfig().set(path + ".z", getAdjusted(player.getLocation().getZ()));
+            config.getConfig().set(path + ".x", WorldUtils.getAdjusted(player.getLocation().getX()));
+            config.getConfig().set(path + ".y", WorldUtils.getAdjusted(player.getLocation().getY()));
+            config.getConfig().set(path + ".z", WorldUtils.getAdjusted(player.getLocation().getZ()));
             config.getConfig().set(path + ".yaw", yaw);
             config.getConfig().set(path + ".pitch", pitch);
             config.save();
@@ -105,46 +106,5 @@ public class SubcommandModify extends AbstractSubCommand {
             return completions;
         }
         return Collections.emptyList();
-    }
-
-    private float getNearestYaw(float yaw) {
-        if (yaw >= -22.5 && yaw < 22.5) {
-            return 0.0f;
-        } else if (yaw >= 22.5 && yaw < 67.5) {
-            return 45.0f;
-        } else if (yaw >= 67.5 && yaw < 112.5) {
-            return 90.0f;
-        } else if (yaw >= 112.5 && yaw < 157.5) {
-            return 135.0f;
-        } else if (yaw >= 157.5 || yaw < -157.5) {
-            return 180.0f;
-        } else if (yaw >= -157.5 && yaw < -112.5) {
-            return -135.0f;
-        } else if (yaw >= -112.5 && yaw < -67.5) {
-            return -90.0f;
-        } else return -45.0f;
-    }
-
-    private double getAdjusted(double coordinate) {
-        double rounded = Math.round(coordinate * 10.0) / 10.0;
-        int intPart = Integer.parseInt(String.valueOf(rounded).split("\\.")[0]);
-        double decimalPart = Integer.parseInt(String.valueOf(rounded).split("\\.")[1]) * 0.1;
-
-        if (decimalPart >= 0 && decimalPart <= 0.2)
-            return intPart;
-
-        else if (decimalPart > 0.2 && decimalPart < 0.8)
-            if (intPart < 0)
-                return intPart - 0.5;
-            else return intPart + 0.5;
-
-        else if (decimalPart >= 0.8)
-            if (intPart < 0)
-                return intPart - 1;
-            else return intPart + 1;
-
-        else if (intPart < 0)
-            return intPart - 0.5;
-        else return intPart + 0.5;
     }
 }

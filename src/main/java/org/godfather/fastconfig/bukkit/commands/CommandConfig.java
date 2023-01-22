@@ -26,7 +26,6 @@ public final class CommandConfig extends Command {
         if(getSubCommand("help").isEmpty())
             return false;
 
-        getSubCommand("help").get().onCommand(sender, args);
-        return true;
+        return getSubCommand("help").get().onCommand(sender, args);
     }
 }
