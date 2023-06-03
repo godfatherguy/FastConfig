@@ -31,7 +31,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         if (!cmd.getName().equalsIgnoreCase(name))
             return false;
 
-        if (args.length == 0)
+        if (args.length == 0 || subCommands.isEmpty())
             return execute(sender, args);
 
         Optional<SubCommand> subCommand = Optional.ofNullable(subCommands.get(args[0]));
